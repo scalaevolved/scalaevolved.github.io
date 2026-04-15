@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pattern bindings in for | scala.evolved</title>
+  <meta name="description" content="Direct pattern matching in generators">
+  <meta name="robots" content="index, follow">
+
+  <link rel="stylesheet" href="/scala-evolved/styles.css">
+  <script>
+    (function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+
+  <link rel="icon" href="/scala-evolved/favicon.ico" sizes="any">
+  <link rel="icon" href="/scala-evolved/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/scala-evolved/apple-touch-icon.png">
+  <link rel="manifest" href="/scala-evolved/manifest.json">
+  <meta name="theme-color" content="#dc322f">
+
+  <meta property="og:title" content="Pattern bindings in for | scala.evolved">
+  <meta property="og:description" content="Direct pattern matching in generators">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="scala.evolved">
+</head>
+<body data-page="single">
+  <nav>
+    <div class="nav-inner">
+      <a href="/scala-evolved/" class="logo">scala.<span>evolved</span></a>
+      <div class="nav-right">
+        <a href="https://github.com/yourusername/scala-evolved" target="_blank" rel="noopener" class="github-link" aria-label="View on GitHub">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 3C6.13 3 3 6.13 3 10c0 3.09 2 5.71 4.77 6.63.35.06.48-.15.48-.33v-1.16c-1.95.42-2.36-1.07-2.36-1.07-.32-.81-.78-1.03-.78-1.03-.64-.43.05-.42.05-.42.7.05 1.07.72 1.07.72.63 1.08 1.65.77 2.05.59.06-.46.24-.77.44-.95-1.57-.18-3.22-.78-3.22-3.48 0-.77.27-1.4.72-1.89-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72.56-.16 1.16-.24 1.76-.24s1.2.08 1.76.24c1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.89 0 2.71-1.65 3.3-3.23 3.47.25.22.48.65.48 1.31v1.94c0 .19.13.4.48.33C15 15.71 17 13.09 17 10c0-3.87-3.13-7-7-7z"/>
+          </svg>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+        <a href="/scala-evolved/" class="back-link">← All Patterns</a>
+        <div class="nav-arrows">
+          <a href="/scala-evolved/syntax/for-comprehension-indentation.html" class="nav-arrow prev" title="Cleaner for comprehensions">←</a><a href="/scala-evolved/errors/try-pattern-matching.html" class="nav-arrow next" title="Try with pattern matching">→</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <article class="article">
+    <div class="breadcrumb">
+      <a href="/scala-evolved/">Home</a>
+      <span class="sep">/</span>
+      <a href="/scala-evolved/#syntax">Syntax</a>
+      <span class="sep">/</span>
+      <span>Pattern bindings in for</span>
+    </div>
+
+    <div class="tip-header">
+      <div class="tip-meta">
+        <span class="badge syntax">Syntax</span>
+        <span class="badge intermediate">Intermediate</span>
+      </div>
+      <h1>Pattern bindings in for</h1>
+      <p>Direct pattern matching in generators</p>
+    </div>
+
+    <section class="compare-section">
+      <div class="section-label">Code Comparison</div>
+      <div class="compare-container">
+        <div class="compare-panel old-panel">
+          <div class="compare-panel-header">
+            <span class="compare-tag old">✕ Scala 2</span>
+            <button class="copy-btn" data-code-old>Copy</button>
+          </div>
+          <div class="compare-code">
+            <pre class="code-text">for {
+  pair &lt;- pairs
+  (x, y) = pair
+  if x &gt; 0
+} yield x + y</pre>
+          </div>
+        </div>
+        <div class="compare-panel modern-panel">
+          <div class="compare-panel-header">
+            <span class="compare-tag modern">✓ Scala 3</span>
+            <button class="copy-btn" data-code-modern>Copy</button>
+          </div>
+          <div class="compare-code">
+            <pre class="code-text">for
+  (x, y) &lt;- pairs
+  if x &gt; 0
+yield x + y</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-label">Old Approach</div>
+        <div class="info-value red">Scala 2</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Modern Approach</div>
+        <div class="info-value green">Scala 3</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Since Scala</div>
+        <div class="info-value accent">3.0</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Difficulty</div>
+        <div class="info-value blue">Intermediate</div>
+      </div>
+    </div>
+
+    <section class="explanation">
+      <div class="section-label">How It Works</div>
+      <p>Pattern matching in generators is more natural than separate bindings.</p>
+    </section>
+
+    <section class="docs-section">
+      <div class="section-label">Related Resources</div>
+      <div class="docs-links">
+        <a href="https://docs.scala-lang.org/scala3/" target="_blank" rel="noopener" class="doc-link">
+          Scala 3 Documentation →
+        </a>
+        <a href="https://docs.scala-lang.org/scala3/guides/migration/compatibility-intro.html" target="_blank" rel="noopener" class="doc-link">
+          Migration Guide →
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <footer>
+    <p><a href="/scala-evolved/">scala.evolved</a> — Scala has evolved. Your code can too.</p>
+    <p>Made with ❤️ for the Scala community</p>
+    <p>Inspired by <a href="https://javaevolved.github.io" target="_blank" rel="noopener">java.evolved</a></p>
+    <p><a href="https://github.com/scalaevolved/scala-evolved" target="_blank" rel="noopener">View on GitHub</a></p>
+  </footer>
+
+  <script src="/scala-evolved/app.js"></script>
+  <script>
+    // Copy button functionality
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pre = btn.closest('.compare-panel').querySelector('.code-text');
+        navigator.clipboard.writeText(pre.textContent).then(() => {
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = 'Copy', 2000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

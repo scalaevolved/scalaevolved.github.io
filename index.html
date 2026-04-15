@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scala.evolved Code Patterns | scala.evolved</title>
+  <meta name="description" content="A collection of side-by-side code comparisons showing old Scala patterns next to their clean, modern replacements — from Scala 2.13 to Scala 3.x">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/">
+
+  <link rel="preload" href="/scala-evolved/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/scala-evolved/assets/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/scala-evolved/favicon.ico" sizes="any">
+  <link rel="icon" href="/scala-evolved/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/scala-evolved/apple-touch-icon.png">
+  <link rel="manifest" href="/scala-evolved/manifest.json">
+  <meta name="theme-color" content="#dc322f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="scala.evolved">
+
+  <meta property="og:title" content="scala.evolved Code Patterns | scala.evolved">
+  <meta property="og:description" content="A collection of side-by-side code comparisons showing old Scala patterns next to their clean, modern replacements">
+  <meta property="og:url" content="https://yourdomain.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="scala.evolved">
+  <meta property="og:locale" content="en">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="scala.evolved Code Patterns | scala.evolved">
+  <meta name="twitter:description" content="A collection of side-by-side code comparisons showing old Scala patterns next to their clean, modern replacements">
+
+  <link rel="stylesheet" href="/scala-evolved/styles.css">
+
+  <script>
+    (function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+</head>
+<body data-page="home">
+  <nav>
+    <div class="nav-inner">
+      <a href="/scala-evolved/" class="logo">scala.<span>evolved</span></a>
+      <div class="nav-right">
+        <a href="https://github.com/scalaevolved/scala-evolved" target="_blank" rel="noopener" class="github-link" aria-label="View on GitHub">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 3C6.13 3 3 6.13 3 10c0 3.09 2 5.71 4.77 6.63.35.06.48-.15.48-.33v-1.16c-1.95.42-2.36-1.07-2.36-1.07-.32-.81-.78-1.03-.78-1.03-.64-.43.05-.42.05-.42.7.05 1.07.72 1.07.72.63 1.08 1.65.77 2.05.59.06-.46.24-.77.44-.95-1.57-.18-3.22-.78-3.22-3.48 0-.77.27-1.4.72-1.89-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72.56-.16 1.16-.24 1.76-.24s1.2.08 1.76.24c1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.89 0 2.71-1.65 3.3-3.23 3.47.25.22.48.65.48 1.31v1.94c0 .19.13.4.48.33C15 15.71 17 13.09 17 10c0-3.87-3.13-7-7-7z"/>
+          </svg>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+        <div class="cmd-bar" id="searchTrigger">Search <kbd>⌘K</kbd></div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">54 snippets</div>
+    <h1>Scala has evolved.<br><span class="gradient">Your code can too.</span></h1>
+    <p>A collection of side-by-side comparisons showing old Scala 2 patterns next to their clean, modern Scala 3 replacements.</p>
+    <a href="#enum-adts" class="hero-compare">
+      <div class="hero-compare-side old">
+        <div class="compare-label old">✕ Scala 2</div>
+        <pre class="code-text" style="margin:0;background:none;border:none;font:inherit;line-height:inherit;padding:0;overflow:visible"><code style="background:none;border:none;padding:0;font:inherit">sealed trait Color
+case object Red extends Color
+case object Green extends Color
+case object Blue extends Color</code></pre>
+      </div>
+      <div class="hero-compare-side modern">
+        <div class="compare-label modern">✓ Scala 3</div>
+        <pre class="code-text" style="margin:0;background:none;border:none;font:inherit;line-height:inherit;padding:0;overflow:visible"><code style="background:none;border:none;padding:0;font:inherit">enum Color:
+  case Red, Green, Blue</code></pre>
+      </div>
+    </a>
+  </section>
+
+  <section class="section" id="all-comparisons" style="padding-top:24px">
+    <div class="section-header">
+      <h2 class="section-title">All Comparisons</h2>
+      <span class="section-badge">54 modern patterns</span>
+    </div>
+    <div class="view-toggle-wrap">
+      <div class="jdk-dropdown" id="categoryDropdown">
+        <button class="jdk-dropdown-toggle" aria-haspopup="listbox" aria-expanded="false">
+          Category <span class="jdk-label">All</span> <span class="dropdown-caret">▾</span>
+        </button>
+        <ul role="listbox">
+          <li data-filter="all" class="active">All</li>
+          <li data-filter="enums">Enums & ADTs</li>
+          <li data-filter="contextual">Contextual</li>
+          <li data-filter="types">Type System</li>
+          <li data-filter="syntax">Syntax</li>
+          <li data-filter="collections">Collections</li>
+          <li data-filter="errors">Error Handling</li>
+          <li data-filter="metaprogramming">Metaprogramming</li>
+          <li data-filter="interop">Interop</li>
+          <li data-filter="concurrency">Concurrency</li>
+        </ul>
+      </div>
+      <button class="view-toggle-btn" id="viewToggle" aria-label="Toggle view mode">
+        <span class="view-toggle-icon">⊞</span>
+        <span class="view-toggle-text">Expand All</span>
+      </button>
+    </div>
+    <div class="tips-grid" id="tipsGrid">
+      <!-- Examples will be loaded here by JavaScript -->
+    </div>
+    <p class="no-results-message" id="noResultsMessage" style="display:none">No patterns found for this filter.</p>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="number orange">54</div>
+      <div class="label">Modern Patterns</div>
+    </div>
+    <div class="stat-card">
+      <div class="number green">8</div>
+      <div class="label">Categories</div>
+    </div>
+    <div class="stat-card">
+      <div class="number blue">Scala 3</div>
+      <div class="label">Latest Version</div>
+    </div>
+    <div class="stat-card">
+      <div class="number pink">100%</div>
+      <div class="label">Awesome</div>
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="/">scala.evolved</a> — Scala has evolved. Your code can too.</p>
+    <p>Made with ❤️ for the Scala community</p>
+    <p>Inspired by <a href="https://javaevolved.github.io" target="_blank" rel="noopener">java.evolved</a></p>
+    <p><a href="https://github.com/scalaevolved/scala-evolved" target="_blank" rel="noopener">View on GitHub</a></p>
+  </footer>
+
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+      <div class="search-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search patterns..." autocomplete="off">
+        <span class="search-esc" id="searchClose">esc</span>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+      <div class="search-footer">
+        <span><kbd>↑↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/scala-evolved/app.js"></script>
+</body>
+</html>
