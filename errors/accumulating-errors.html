@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Using for resource management | scala.evolved</title>
-  <meta name="description" content="Using provides automatic resource management">
+  <title>Accumulating validation errors | scala.evolved</title>
+  <meta name="description" content="Accumulate all validation errors instead of failing at first">
   <meta name="robots" content="index, follow">
 
   <link rel="stylesheet" href="/styles.css">
@@ -18,8 +18,8 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#dc322f">
 
-  <meta property="og:title" content="Using for resource management | scala.evolved">
-  <meta property="og:description" content="Using provides automatic resource management">
+  <meta property="og:title" content="Accumulating validation errors | scala.evolved">
+  <meta property="og:description" content="Accumulate all validation errors instead of failing at first">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="scala.evolved">
 </head>
@@ -37,7 +37,7 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
         <a href="/" class="back-link">← All Patterns</a>
         <div class="nav-arrows">
-          <a href="/concurrency/future-transform.html" class="nav-arrow prev" title="Future.transform simplification">←</a><a href="/collections/groupmap.html" class="nav-arrow next" title="groupMap and groupMapReduce">→</a>
+          <a href="/errors/flatten-nested-options.html" class="nav-arrow prev" title="Flatten nested Options/Eithers">←</a><a href="/syntax/boundary-break.html" class="nav-arrow next" title="Boundary/break for early returns">→</a>
         </div>
       </div>
     </div>
@@ -47,18 +47,18 @@
     <div class="breadcrumb">
       <a href="/">Home</a>
       <span class="sep">/</span>
-      <a href="/#syntax">Syntax</a>
+      <a href="/#errors">Error Handling</a>
       <span class="sep">/</span>
-      <span>Using for resource management</span>
+      <span>Accumulating validation errors</span>
     </div>
 
     <div class="tip-header">
       <div class="tip-meta">
-        <span class="badge syntax">Syntax</span>
+        <span class="badge errors">Error Handling</span>
         <span class="badge intermediate">Intermediate</span>
       </div>
-      <h1>Using for resource management</h1>
-      <p>Using provides automatic resource management</p>
+      <h1>Accumulating validation errors</h1>
+      <p>Accumulate all validation errors instead of failing at first</p>
     </div>
 
     <section class="compare-section">
@@ -66,29 +66,40 @@
       <div class="compare-container">
         <div class="compare-panel old-panel">
           <div class="compare-panel-header">
-            <span class="compare-tag old">✕ Try/Finally</span>
+            <span class="compare-tag old">✕ Fail-fast (Either)</span>
             <button class="copy-btn" data-code-old>Copy</button>
           </div>
           <div class="compare-code">
-            <pre class="code-text">val source = Source.fromFile(&quot;file.txt&quot;)
-try {
-  source.getLines().toList
-} finally {
-  source.close()
-}</pre>
+            <pre class="code-text">// Fails at first error
+def validateUser(data: UserData): Either[String, User] =
+  for
+    age &lt;- validateAge(data.age)
+    email &lt;- validateEmail(data.email)
+    name &lt;- validateName(data.name)
+  yield User(name, age, email)
+
+// Returns: Left(&quot;Invalid age&quot;)
+// Stops, doesn&#x27;t check email/name</pre>
           </div>
         </div>
         <div class="compare-panel modern-panel">
           <div class="compare-panel-header">
-            <span class="compare-tag modern">✓ Using</span>
+            <span class="compare-tag modern">✓ Accumulate errors</span>
             <button class="copy-btn" data-code-modern>Copy</button>
           </div>
           <div class="compare-code">
-            <pre class="code-text">import scala.util.Using
-
-Using(Source.fromFile(&quot;file.txt&quot;)) { source =&gt;
-  source.getLines().toList
-}</pre>
+            <pre class="code-text">// Collect all errors
+def validateUser(data: UserData): Either[List[String], User] =
+  val errors = List(
+    validateAge(data.age).left.toOption,
+    validateEmail(data.email).left.toOption,
+    validateName(data.name).left.toOption
+  ).flatten
+  
+  if errors.isEmpty then
+    Right(User(data.name, data.age, data.email))
+  else
+    Left(errors)</pre>
           </div>
         </div>
       </div>
@@ -97,15 +108,15 @@ Using(Source.fromFile(&quot;file.txt&quot;)) { source =&gt;
     <div class="info-grid">
       <div class="info-card">
         <div class="info-label">Old Approach</div>
-        <div class="info-value red">Try/Finally</div>
+        <div class="info-value red">Fail-fast (Either)</div>
       </div>
       <div class="info-card">
         <div class="info-label">Modern Approach</div>
-        <div class="info-value green">Using</div>
+        <div class="info-value green">Accumulate errors</div>
       </div>
       <div class="info-card">
         <div class="info-label">Since Scala</div>
-        <div class="info-value accent">2.13</div>
+        <div class="info-value accent">3.0</div>
       </div>
       <div class="info-card">
         <div class="info-label">Difficulty</div>
@@ -115,7 +126,7 @@ Using(Source.fromFile(&quot;file.txt&quot;)) { source =&gt;
 
     <section class="explanation">
       <div class="section-label">How It Works</div>
-      <p>Using handles resource cleanup safely, returning Try[T] with proper error handling.</p>
+      <p>Collecting all errors gives better UX than fail-fast. Pure Scala approach without external libraries. For production, consider Cats Validated or ZIO validation.</p>
     </section>
 
     <section class="docs-section">

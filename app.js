@@ -56,8 +56,8 @@
   const loadSnippets = async () => {
     try {
       const indexPath = locale === 'en'
-        ? '/scala-evolved/data/snippets.json'
-        : '/scala-evolved/' + locale + '/data/snippets.json';
+        ? '/data/snippets.json'
+        : '/' + locale + '/data/snippets.json';
       const res = await fetch(indexPath);
       snippets = await res.json();
     } catch (e) {
@@ -834,7 +834,7 @@
     if (!grid || snippets.length === 0) return;
 
     grid.innerHTML = snippets.map(snippet => `
-      <a href="/scala-evolved/${snippet.category}/${snippet.slug}.html" class="tip-card" data-category="${snippet.category}" data-jdk="${snippet.scalaVersion}">
+      <a href="/${snippet.category}/${snippet.slug}.html" class="tip-card" data-category="${snippet.category}" data-jdk="${snippet.scalaVersion}">
         <div class="tip-card-body">
           <div class="tip-card-header">
             <h3>${escapeHtml(snippet.title)}</h3>

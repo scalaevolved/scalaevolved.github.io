@@ -2,7 +2,7 @@
 
 **Scala has evolved. Your code can too.**
 
-🔗 **[scalaevolved.github.io/scala-evolved](https://scalaevolved.github.io/scala-evolved)**
+🔗 **[scalaevolved.github.io](https://scalaevolved.github.io)**
 
 A collection of side-by-side code comparisons showing old Scala 2 patterns next to their clean, modern Scala 3 replacements.
 

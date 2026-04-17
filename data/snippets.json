@@ -295,20 +295,6 @@
   },
   {
     "id": 22,
-    "slug": "json-circe",
-    "title": "JSON with circe (modern approach)",
-    "category": "interop",
-    "difficulty": "intermediate",
-    "scalaVersion": "3.0",
-    "oldLabel": "Manual parsing",
-    "modernLabel": "Circe",
-    "oldCode": "case class User(name: String, age: Int)\n\ndef parseUser(json: String): User = {\n  // Manual JSON parsing\n  val obj = parseJson(json)\n  User(\n    obj(\"name\").asString,\n    obj(\"age\").asInt\n  )\n}",
-    "modernCode": "import io.circe.*, io.circe.generic.auto.*\nimport io.circe.parser.*\n\ncase class User(name: String, age: Int)\n\nval user = decode[User](jsonString)",
-    "summary": "Circe provides automatic JSON codec derivation",
-    "explanation": "Circe uses compile-time derivation for type-safe JSON handling without reflection."
-  },
-  {
-    "id": 23,
     "slug": "xml-literals",
     "title": "XML literals (still available)",
     "category": "interop",
@@ -322,7 +308,7 @@
     "explanation": "XML literals work in Scala 3, but typed libraries like scalaxb are now preferred."
   },
   {
-    "id": 24,
+    "id": 23,
     "slug": "immutable-arraybuffer",
     "title": "ArraySeq for immutable arrays",
     "category": "collections",
@@ -336,7 +322,7 @@
     "explanation": "ArraySeq.unsafeWrapArray gives O(1) operations with immutable guarantees."
   },
   {
-    "id": 25,
+    "id": 24,
     "slug": "views-rework",
     "title": "Improved collection views",
     "category": "collections",
@@ -350,7 +336,7 @@
     "explanation": "Scala 2.13 redesigned views with better type safety and performance."
   },
   {
-    "id": 26,
+    "id": 25,
     "slug": "future-transform",
     "title": "Future.transform simplification",
     "category": "concurrency",
@@ -364,7 +350,7 @@
     "explanation": "Unified transform API is simpler and more composable."
   },
   {
-    "id": 27,
+    "id": 26,
     "slug": "try-using",
     "title": "Using for resource management",
     "category": "syntax",
@@ -378,7 +364,7 @@
     "explanation": "Using handles resource cleanup safely, returning Try[T] with proper error handling."
   },
   {
-    "id": 28,
+    "id": 27,
     "slug": "groupmap",
     "title": "groupMap and groupMapReduce",
     "category": "collections",
@@ -392,7 +378,7 @@
     "explanation": "More efficient than groupBy + mapValues, avoids creating intermediate collections."
   },
   {
-    "id": 29,
+    "id": 28,
     "slug": "tapEach",
     "title": "tapEach for side effects",
     "category": "collections",
@@ -406,7 +392,7 @@
     "explanation": "tapEach returns the collection, enabling fluent side-effectful operations."
   },
   {
-    "id": 30,
+    "id": 29,
     "slug": "chaining-pipe",
     "title": "Pipe and tap for chaining",
     "category": "syntax",
@@ -420,7 +406,7 @@
     "explanation": "The pipe method (|>) makes data transformation pipelines more readable."
   },
   {
-    "id": 31,
+    "id": 30,
     "slug": "typeclass-derivation",
     "title": "Automatic typeclass derivation",
     "category": "contextual",
@@ -434,7 +420,7 @@
     "explanation": "Using inline and Mirror, typeclasses can be derived automatically without macros."
   },
   {
-    "id": 32,
+    "id": 31,
     "slug": "typeclass-coherence",
     "title": "Typeclass instance resolution",
     "category": "contextual",
@@ -448,7 +434,7 @@
     "explanation": "summon[T] is the preferred way to summon typeclass instances in Scala 3."
   },
   {
-    "id": 33,
+    "id": 32,
     "slug": "typeclass-extension",
     "title": "Typeclass syntax with extensions",
     "category": "contextual",
@@ -462,7 +448,7 @@
     "explanation": "Extension methods with using clauses provide clean typeclass syntax."
   },
   {
-    "id": 34,
+    "id": 33,
     "slug": "for-comprehension-indentation",
     "title": "Cleaner for comprehensions",
     "category": "syntax",
@@ -476,7 +462,7 @@
     "explanation": "Scala 3 optional braces make for comprehensions even cleaner."
   },
   {
-    "id": 35,
+    "id": 34,
     "slug": "for-pattern-bindings",
     "title": "Pattern bindings in for",
     "category": "syntax",
@@ -490,7 +476,7 @@
     "explanation": "Pattern matching in generators is more natural than separate bindings."
   },
   {
-    "id": 36,
+    "id": 35,
     "slug": "try-pattern-matching",
     "title": "Try with pattern matching",
     "category": "errors",
@@ -504,7 +490,7 @@
     "explanation": "Try makes error handling functional and composable with map, flatMap, etc."
   },
   {
-    "id": 37,
+    "id": 36,
     "slug": "either-error-handling",
     "title": "Either for typed errors",
     "category": "errors",
@@ -518,7 +504,7 @@
     "explanation": "Either[Error, Success] makes errors explicit in function signatures."
   },
   {
-    "id": 38,
+    "id": 37,
     "slug": "option-null-safety",
     "title": "Option instead of null",
     "category": "errors",
@@ -532,7 +518,7 @@
     "explanation": "Option[T] explicitly represents presence/absence, preventing null errors."
   },
   {
-    "id": 39,
+    "id": 38,
     "slug": "flatten-nested-options",
     "title": "Flatten nested Options/Eithers",
     "category": "errors",
@@ -546,21 +532,21 @@
     "explanation": "For comprehensions make chaining Option/Either/Try operations elegant."
   },
   {
-    "id": 40,
-    "slug": "validated-accumulating-errors",
-    "title": "Validated for error accumulation (Cats)",
+    "id": 39,
+    "slug": "accumulating-errors",
+    "title": "Accumulating validation errors",
     "category": "errors",
-    "difficulty": "advanced",
+    "difficulty": "intermediate",
     "scalaVersion": "3.0",
-    "oldLabel": "Either (fail-fast)",
-    "modernLabel": "Validated (accumulate)",
-    "oldCode": "// Either stops at first error\nfor\n  age <- validateAge(data.age)\n  email <- validateEmail(data.email)\n  name <- validateName(data.name)\nyield User(name, age, email)",
-    "modernCode": "import cats.data.Validated\nimport cats.implicits.*\n\n(validateAge(data.age),\n validateEmail(data.email),\n validateName(data.name)\n).mapN(User.apply)\n// Returns all validation errors",
-    "summary": "Validated accumulates all errors instead of failing fast",
-    "explanation": "Validated is better for form validation where you want to show all errors."
+    "oldLabel": "Fail-fast (Either)",
+    "modernLabel": "Accumulate errors",
+    "oldCode": "// Fails at first error\ndef validateUser(data: UserData): Either[String, User] =\n  for\n    age <- validateAge(data.age)\n    email <- validateEmail(data.email)\n    name <- validateName(data.name)\n  yield User(name, age, email)\n\n// Returns: Left(\"Invalid age\")\n// Stops, doesn't check email/name",
+    "modernCode": "// Collect all errors\ndef validateUser(data: UserData): Either[List[String], User] =\n  val errors = List(\n    validateAge(data.age).left.toOption,\n    validateEmail(data.email).left.toOption,\n    validateName(data.name).left.toOption\n  ).flatten\n  \n  if errors.isEmpty then\n    Right(User(data.name, data.age, data.email))\n  else\n    Left(errors)",
+    "summary": "Accumulate all validation errors instead of failing at first",
+    "explanation": "Collecting all errors gives better UX than fail-fast. Pure Scala approach without external libraries. For production, consider Cats Validated or ZIO validation."
   },
   {
-    "id": 41,
+    "id": 40,
     "slug": "boundary-break",
     "title": "Boundary/break for early returns",
     "category": "syntax",
@@ -574,7 +560,7 @@
     "explanation": "Boundary/break offers structured early returns without exceptions or vars."
   },
   {
-    "id": 42,
+    "id": 41,
     "slug": "using-resources-multiple",
     "title": "Using with multiple resources",
     "category": "errors",
@@ -588,7 +574,7 @@
     "explanation": "Manager ensures all resources are closed even if some acquisitions fail."
   },
   {
-    "id": 43,
+    "id": 42,
     "slug": "named-tuples",
     "title": "Named tuples",
     "category": "types",
@@ -602,7 +588,7 @@
     "explanation": "Named tuples are lightweight records without boilerplate, compile to regular tuples."
   },
   {
-    "id": 44,
+    "id": 43,
     "slug": "named-tuple-type",
     "title": "Named tuple types",
     "category": "types",
@@ -616,7 +602,7 @@
     "explanation": "For simple data holders, named tuples avoid case class overhead."
   },
   {
-    "id": 45,
+    "id": 44,
     "slug": "capture-checking",
     "title": "Capture checking (experimental)",
     "category": "types",
@@ -630,7 +616,7 @@
     "explanation": "CC mode tracks which values are captured, preventing use-after-free bugs."
   },
   {
-    "id": 46,
+    "id": 45,
     "slug": "explicit-nulls",
     "title": "Explicit nulls (experimental)",
     "category": "types",
@@ -644,7 +630,7 @@
     "explanation": "String is non-nullable by default, use String | Null for nullable."
   },
   {
-    "id": 47,
+    "id": 46,
     "slug": "fewer-braces",
     "title": "Fewer braces syntax",
     "category": "syntax",
@@ -658,7 +644,7 @@
     "explanation": "Trailing colon allows skipping braces for single-arg lambdas."
   },
   {
-    "id": 48,
+    "id": 47,
     "slug": "infix-type-operators",
     "title": "Infix type operators",
     "category": "types",
@@ -672,7 +658,7 @@
     "explanation": "Two-parameter types read more naturally with infix notation."
   },
   {
-    "id": 49,
+    "id": 48,
     "slug": "quotes-splice-macros",
     "title": "Quotes and splices (macros)",
     "category": "metaprogramming",
@@ -686,7 +672,7 @@
     "explanation": "Scala 3 macros use quotes '{ } and splices ${ } for type-safe AST manipulation."
   },
   {
-    "id": 50,
+    "id": 49,
     "slug": "transparent-inline",
     "title": "Transparent inline",
     "category": "metaprogramming",
@@ -700,7 +686,7 @@
     "explanation": "Transparent inline allows the return type to be computed from argument types."
   },
   {
-    "id": 51,
+    "id": 50,
     "slug": "compiletime-ops",
     "title": "Compiletime operations",
     "category": "metaprogramming",
@@ -714,7 +700,7 @@
     "explanation": "Operations on types and constants can be evaluated during compilation."
   },
   {
-    "id": 52,
+    "id": 51,
     "slug": "main-annotation",
     "title": "@main annotation for entry points",
     "category": "syntax",
@@ -728,7 +714,7 @@
     "explanation": "@main methods get automatic command-line parsing and help messages."
   },
   {
-    "id": 53,
+    "id": 52,
     "slug": "thread-unsafety-checking",
     "title": "Thread safety annotations",
     "category": "concurrency",
@@ -742,7 +728,7 @@
     "explanation": "@threadUnsafe marks state that shouldn't be accessed concurrently."
   },
   {
-    "id": 54,
+    "id": 53,
     "slug": "improved-type-inference",
     "title": "Improved type inference",
     "category": "types",

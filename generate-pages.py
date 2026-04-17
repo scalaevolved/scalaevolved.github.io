@@ -35,12 +35,12 @@ def generate_page(snippet, prev_snippet, next_snippet):
     # Navigation arrows
     nav_arrows = ""
     if prev_snippet:
-        nav_arrows += f'<a href="/scala-evolved/{prev_snippet["category"]}/{prev_snippet["slug"]}.html" class="nav-arrow prev" title="{escape_html(prev_snippet["title"])}">←</a>'
+        nav_arrows += f'<a href="/{prev_snippet["category"]}/{prev_snippet["slug"]}.html" class="nav-arrow prev" title="{escape_html(prev_snippet["title"])}">←</a>'
     if next_snippet:
-        nav_arrows += f'<a href="/scala-evolved/{next_snippet["category"]}/{next_snippet["slug"]}.html" class="nav-arrow next" title="{escape_html(next_snippet["title"])}">→</a>'
+        nav_arrows += f'<a href="/{next_snippet["category"]}/{next_snippet["slug"]}.html" class="nav-arrow next" title="{escape_html(next_snippet["title"])}">→</a>'
 
     # Base prefix for assets
-    base_prefix = "/scala-evolved/"
+    base_prefix = "/"
 
     html_content = f"""<!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -70,16 +70,16 @@ def generate_page(snippet, prev_snippet, next_snippet):
 <body data-page="single">
   <nav>
     <div class="nav-inner">
-      <a href="/scala-evolved/" class="logo">scala.<span>evolved</span></a>
+      <a href="/" class="logo">scala.<span>evolved</span></a>
       <div class="nav-right">
-        <a href="https://github.com/yourusername/scala-evolved" target="_blank" rel="noopener" class="github-link" aria-label="View on GitHub">
+        <a href="https://github.com/scalaevolved/scalaevolved.github.io" target="_blank" rel="noopener" class="github-link" aria-label="View on GitHub">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
             <path d="M10 3C6.13 3 3 6.13 3 10c0 3.09 2 5.71 4.77 6.63.35.06.48-.15.48-.33v-1.16c-1.95.42-2.36-1.07-2.36-1.07-.32-.81-.78-1.03-.78-1.03-.64-.43.05-.42.05-.42.7.05 1.07.72 1.07.72.63 1.08 1.65.77 2.05.59.06-.46.24-.77.44-.95-1.57-.18-3.22-.78-3.22-3.48 0-.77.27-1.4.72-1.89-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72.56-.16 1.16-.24 1.76-.24s1.2.08 1.76.24c1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.89 0 2.71-1.65 3.3-3.23 3.47.25.22.48.65.48 1.31v1.94c0 .19.13.4.48.33C15 15.71 17 13.09 17 10c0-3.87-3.13-7-7-7z"/>
           </svg>
         </a>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
-        <a href="/scala-evolved/" class="back-link">← All Patterns</a>
+        <a href="/" class="back-link">← All Patterns</a>
         <div class="nav-arrows">
           {nav_arrows}
         </div>
@@ -89,9 +89,9 @@ def generate_page(snippet, prev_snippet, next_snippet):
 
   <article class="article">
     <div class="breadcrumb">
-      <a href="/scala-evolved/">Home</a>
+      <a href="/">Home</a>
       <span class="sep">/</span>
-      <a href="/scala-evolved/#{category}">{get_category_display(category)}</a>
+      <a href="/#{category}">{get_category_display(category)}</a>
       <span class="sep">/</span>
       <span>{escape_html(snippet['title'])}</span>
     </div>
@@ -167,13 +167,13 @@ def generate_page(snippet, prev_snippet, next_snippet):
   </article>
 
   <footer>
-    <p><a href="/scala-evolved/">scala.evolved</a> — Scala has evolved. Your code can too.</p>
+    <p><a href="/">scala.evolved</a> — Scala has evolved. Your code can too.</p>
     <p>Made with ❤️ for the Scala community</p>
     <p>Inspired by <a href="https://javaevolved.github.io" target="_blank" rel="noopener">java.evolved</a></p>
-    <p><a href="https://github.com/scalaevolved/scala-evolved" target="_blank" rel="noopener">View on GitHub</a></p>
+    <p><a href="https://github.com/scalaevolved/scalaevolved.github.io" target="_blank" rel="noopener">View on GitHub</a></p>
   </footer>
 
-  <script src="/scala-evolved/app.js"></script>
+  <script src="/app.js"></script>
   <script>
     // Copy button functionality
     document.querySelectorAll('.copy-btn').forEach(btn => {{
